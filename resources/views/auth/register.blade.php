@@ -33,7 +33,7 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
+    <link href="{{ asset ('template/sign-in/signin.css') }}" rel="stylesheet">
   </head>
   <body class="text-center">
     
@@ -54,26 +54,46 @@
       @enderror
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" @error('password') is-invalid @enderror name="password" id="Password" placeholder="Password">
-      <label for="Password">Password</label>
-      @error('password')
+      <input type="text" class="form-control @error('name') is-invalid @enderror"
+      value="{{ old('name') }}" id="name" name="name" placeholder="your name">
+      <label for="name">Your Name</label>
+      @error('name')
       <div class="invalid-feedback">
-        {{ $message }}
+       {{ $message }}
       </div>
-      @enderror
+      @enderror  
     </div>
 
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
-    </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+  </div>
+  <div class="form-floating">
+  <input type="password" class="form-control @error('password') is-invalid 
+  @enderror" name="password" id="password" placeholder="Password">
+  <label for="password">Password</label>
+  @error('password')
+  <div class="invalid-feedback">
+   {{ $message }}
+  </div>
+  @enderror
+  </div>
+  <div class="form-floating">
+  <input type="password" class="form-control @error('confirm-password') is-invalid 
+  @enderror" name="confirm-password" id="confirm-password" placeholder="confirmpassword">
+  <label for="confirm-password">Confirm Password</label>
+  @error('confirm-password')
+  <div class="invalid-feedback">
+   {{ $message }}
+  </div>
+  @enderror
+  </div>
+  <div class="checkbox mb-3">
+  <label>
+  <input type="checkbox" value="remember-me"> Remember me
+  </label>
+  </div>
+  <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+  <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
   </form>
-</main>
-
-
-    
+  </main>
   </body>
-</html>
+  </html>
+  

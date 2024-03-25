@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\hash;
-use App\Models\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 
 class AuthController extends Controller
@@ -29,7 +30,8 @@ class AuthController extends Controller
         ]);
         $data = $request->except('confirm-password', 'password');
         $data['password'] = Hash::make($request->password);
-        Auth::create($data);
+        User::create($data);
+        return redirect('/login');
     }
     public function authenticate(Request $request)
     {
@@ -53,7 +55,5 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         return redirect('/login');
     }
-      
-      
-    
+          
 }
