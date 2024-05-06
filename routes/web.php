@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Auth\Middleware\Authenticate;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Auth;
+use App\Http\Controllers\MahasiswaController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,8 +19,8 @@ use Illuminate\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware(['auth'])->group(function () {
+
 })->middleware('auth');
 
 //login
@@ -27,6 +30,18 @@ Route::post('/login', [AuthController::class, 'authenticate'])->name('auth.authe
 //Register
 Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
 Route::post('/register', [AuthController::class, 'store'])->name('auth.store');
+
+//logout
+Route::post('/register', [AuthController::class, 'store'])->name('auth.store');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', [MahasiswaController::class, 'index'])->name('index');
+    Route::get('/tambah-mahasiswa', [MahasiswaController::class, 'create'])->name('create');   
+    Route::get('/edit-mahasiswa/{id}', [MahasiswaController::class, 'edit'])->name('edit');
+    Route::post('/tambah-mahasiswa', [MahasiswaController::class, 'store'])->name('store');
+    Route::post('/edit-mahasiswa/{id}', [MahasiswaController::class, 'update'])->name('update');
+    Route::post('/delete-mahasiswa/{id}', [MahasiswaController::class, 'destroy'])->name('destroy');
+});
 
 //logout
 Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
